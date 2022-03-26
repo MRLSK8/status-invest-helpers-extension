@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "getEarningValue",
+  "author": "Marcelo Lima",
+  "version": "0.1",
+  "description": "Function to get earning value of my investiments.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://statusinvest.com.br/carteira/patrimonio"
+      ],
+      "js": [
+        "index.js"
+      ]
+    }
+  ]
+}
