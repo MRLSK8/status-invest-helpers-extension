@@ -1,4 +1,5 @@
-function getEarningValue() {
+// seta o valor que eu to ganhando ou perdendo do patrimonio.
+function setEarningValue() {
   function currencyStringValueToNumber(currency) {
     return Number(currency.replace(".", "").replace(",", "."));
   };
@@ -26,10 +27,6 @@ function getEarningValue() {
 
   span.classList.add("fw-700");
 
-  // if (earningValue < 0) {
-  //   span.classList.add("text-main-secondary");
-  // }
-
   span.setAttribute('data-item', "total_F");
 
   span.innerText = "R$ " + numberToCurrencyStringValue(earningValue.toFixed(2));
@@ -44,6 +41,42 @@ function getEarningValue() {
   }
 }
 
+
+// seta os valores das porcentagens ideal para cada ativo.
+function setIdealPercentages() {
+  const activePercentages = {
+    ALUP4: 2,
+    BBAS3: 2,
+    EGIE3: 2,
+    FLRY3: 2,
+    SAPR4: 2,
+    ALZR11: 10,
+    BCFF11: 10,
+    HGLG11: 10,
+    IRDM11: 7,
+    KNRI11: 10,
+    MXRF11: 10,
+    XPLG11: 10,
+  };
+
+  function teste(CODE) {
+    const field = `div.card div.collapsible-body table > tbody td[title='${CODE}'] ~ td[data-key='walletPercent']`;
+    const totalPercentageValueField = document
+      .querySelector(field);
+
+    if (!totalPercentageValueField) return;
+    const currentValue = totalPercentageValueField.innerText.replace("%", '');
+
+    totalPercentageValueField.innerText = `${currentValue}% -> ( ${activePercentages[CODE]}% ) `;
+  }
+
+  Object.keys(activePercentages).map(key => {
+    console.log(key)
+    teste(key)
+  });
+}
+
+// Chama as apis pra atualizar os valores da carteira no status invest.
 const updateInfo = async () => {
   let formDataId = new FormData();
   formDataId.append('id', '296055');
@@ -96,6 +129,7 @@ const updateInfo = async () => {
   }
 };
 
+// cria botão pra atualizar a carteira no status invest.
 const createUpdateButton = () => {
   const notificationTag = document.querySelectorAll("li.nav-item")[8];
 
@@ -119,7 +153,12 @@ const main = () => {
 
   setTimeout(createUpdateButton, 2 * MILISECONDS);
 
-  setTimeout(getEarningValue, 3 * MILISECONDS);
+  setTimeout(() => {
+    setEarningValue();
+    setIdealPercentages();
+  }, 3 * MILISECONDS);
 };
 
+
 main();
+
