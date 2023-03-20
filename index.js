@@ -59,20 +59,24 @@ function setIdealPercentages() {
     XPLG11: 10,
   };
 
-  function teste(CODE) {
+  function setPercentage(CODE) {
     const field = `div.card div.collapsible-body table > tbody td[title='${CODE}'] ~ td[data-key='walletPercent']`;
-    const totalPercentageValueField = document
-      .querySelector(field);
+    const totalPercentageValueField = document.querySelector(field);
 
     if (!totalPercentageValueField) return;
-    const currentValue = totalPercentageValueField.innerText.replace("%", '');
 
-    totalPercentageValueField.innerText = `${currentValue}% -> ( ${activePercentages[CODE]}% ) `;
+    const currentValue = totalPercentageValueField.innerText.replace("%", '').replace(',', '.');
+    const codeValue = activePercentages[CODE];
+    const codeValueColor = parseFloat(currentValue) >= codeValue ? 'value-up-color' : 'value-down-color';
+    const percentageValue = Math.abs(parseFloat(currentValue) - codeValue).toFixed(2).replace('.', ',');
+
+    const innerValue = `${currentValue.replace('.', ',')}% _ <span class=${codeValueColor}>${percentageValue}%</span> _ [${codeValue}%]`;
+
+    totalPercentageValueField.innerHTML = innerValue;
   }
 
   Object.keys(activePercentages).map(key => {
-    console.log(key)
-    teste(key)
+    setPercentage(key);
   });
 }
 
