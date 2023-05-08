@@ -45,12 +45,12 @@ function setEarningValue() {
 // seta os valores das porcentagens ideal para cada ativo.
 function setIdealPercentages() {
   const activePercentages = {
-    ALUP4: 2,
-    BBAS3: 2,
-    EGIE3: 2,
-    FLRY3: 2,
-    SAPR4: 2,
-    ALZR11: 10,
+    ALUP4: 3,
+    BBAS3: 3,
+    EGIE3: 3,
+    FLRY3: 3,
+    SAPR4: 3,
+    ALZR11: 8,
     BCFF11: 10,
     HGLG11: 10,
     IRDM11: 7,
